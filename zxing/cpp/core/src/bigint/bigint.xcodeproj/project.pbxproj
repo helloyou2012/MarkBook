@@ -1,0 +1,168 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		DDF5E668182E0FA700254832 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		DDF5E669182E0FA700254832 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DDF5E66A182E0FA700254832 /* BigInteger.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BigInteger.cc; sourceTree = "<group>"; };
+		DDF5E66B182E0FA700254832 /* BigInteger.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigInteger.hh; sourceTree = "<group>"; };
+		DDF5E66C182E0FA700254832 /* BigIntegerAlgorithms.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BigIntegerAlgorithms.cc; sourceTree = "<group>"; };
+		DDF5E66D182E0FA700254832 /* BigIntegerAlgorithms.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigIntegerAlgorithms.hh; sourceTree = "<group>"; };
+		DDF5E66E182E0FA700254832 /* BigIntegerLibrary.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigIntegerLibrary.hh; sourceTree = "<group>"; };
+		DDF5E66F182E0FA700254832 /* BigIntegerUtils.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BigIntegerUtils.cc; sourceTree = "<group>"; };
+		DDF5E670182E0FA700254832 /* BigIntegerUtils.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigIntegerUtils.hh; sourceTree = "<group>"; };
+		DDF5E671182E0FA700254832 /* BigUnsigned.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BigUnsigned.cc; sourceTree = "<group>"; };
+		DDF5E672182E0FA700254832 /* BigUnsigned.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigUnsigned.hh; sourceTree = "<group>"; };
+		DDF5E673182E0FA700254832 /* BigUnsignedInABase.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = BigUnsignedInABase.cc; sourceTree = "<group>"; };
+		DDF5E674182E0FA700254832 /* BigUnsignedInABase.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = BigUnsignedInABase.hh; sourceTree = "<group>"; };
+		DDF5E675182E0FA700254832 /* ChangeLog */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		DDF5E676182E0FA700254832 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		DDF5E677182E0FA700254832 /* NumberlikeArray.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NumberlikeArray.hh; sourceTree = "<group>"; };
+		DDF5E678182E0FA700254832 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		DDF5E662182E0FA700254832 = {
+			isa = PBXGroup;
+			children = (
+				DDF5E668182E0FA700254832 /* .DS_Store */,
+				DDF5E669182E0FA700254832 /* .gitignore */,
+				DDF5E66A182E0FA700254832 /* BigInteger.cc */,
+				DDF5E66B182E0FA700254832 /* BigInteger.hh */,
+				DDF5E66C182E0FA700254832 /* BigIntegerAlgorithms.cc */,
+				DDF5E66D182E0FA700254832 /* BigIntegerAlgorithms.hh */,
+				DDF5E66E182E0FA700254832 /* BigIntegerLibrary.hh */,
+				DDF5E66F182E0FA700254832 /* BigIntegerUtils.cc */,
+				DDF5E670182E0FA700254832 /* BigIntegerUtils.hh */,
+				DDF5E671182E0FA700254832 /* BigUnsigned.cc */,
+				DDF5E672182E0FA700254832 /* BigUnsigned.hh */,
+				DDF5E673182E0FA700254832 /* BigUnsignedInABase.cc */,
+				DDF5E674182E0FA700254832 /* BigUnsignedInABase.hh */,
+				DDF5E675182E0FA700254832 /* ChangeLog */,
+				DDF5E676182E0FA700254832 /* Makefile */,
+				DDF5E677182E0FA700254832 /* NumberlikeArray.hh */,
+				DDF5E678182E0FA700254832 /* README */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		DDF5E667182E0FA700254832 /* bigint */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = DDF5E679182E0FA700254832 /* Build configuration list for PBXLegacyTarget "bigint" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "/Users/helloyou/Desktop/zxing-master/cpp/core/src/bigint";
+			dependencies = (
+			);
+			name = bigint;
+			passBuildSettingsInEnvironment = 1;
+			productName = bigint;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		DDF5E663182E0FA700254832 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = DDF5E666182E0FA700254832 /* Build configuration list for PBXProject "bigint" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DDF5E662182E0FA700254832;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DDF5E667182E0FA700254832 /* bigint */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		DDF5E664182E0FA700254832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		DDF5E665182E0FA700254832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		DDF5E67A182E0FA700254832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = bigint;
+			};
+			name = Debug;
+		};
+		DDF5E67B182E0FA700254832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = bigint;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DDF5E666182E0FA700254832 /* Build configuration list for PBXProject "bigint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDF5E664182E0FA700254832 /* Debug */,
+				DDF5E665182E0FA700254832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DDF5E679182E0FA700254832 /* Build configuration list for PBXLegacyTarget "bigint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DDF5E67A182E0FA700254832 /* Debug */,
+				DDF5E67B182E0FA700254832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DDF5E663182E0FA700254832 /* Project object */;
+}
