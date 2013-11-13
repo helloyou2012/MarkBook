@@ -116,6 +116,15 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
+    [browser setCurrentPhotoIndex:indexPath.row];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:browser];
+    nc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:nc animated:YES completion:nil];
+}
+
 #pragma mark -
 #pragma mark Moving rows
 
@@ -136,6 +145,23 @@
     }else{
         self.navigationItem.rightBarButtonItem.title=@"编辑";
     }
+}
+
+
+#pragma mark - MWPhotoBrowserDelegate
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return _bookMarks.count;
+}
+
+- (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < _bookMarks.count){
+        BookMarks *mark=[_bookMarks objectAtIndex:index];
+        MWPhoto *photo=[MWPhoto photoWithImage:[UIImage imageWithData:mark.photo]];
+        photo.caption=[NSString stringWithFormat:@"第 %@ 页", mark.page];
+        return photo;
+    }
+    return nil;
 }
 
 @end

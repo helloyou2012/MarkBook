@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWPhotoBrowser.h"
 #import "Book.h"
 
-@interface MarkTableViewController : UITableViewController
+@interface MarkTableViewController : UITableViewController<MWPhotoBrowserDelegate>
 
 @property (nonatomic, retain) Book *book;
 @property (nonatomic, retain) NSMutableArray *bookMarks;
