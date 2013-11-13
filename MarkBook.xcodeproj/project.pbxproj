@@ -429,7 +429,6 @@
 			isa = PBXGroup;
 			children = (
 				DDF5E92A182E2F8400254832 /* MarkBookTests.m */,
-				DDF5E951182E332D00254832 /* connections */,
 				DDF5E925182E2F8400254832 /* Supporting Files */,
 			);
 			path = MarkBookTests;
@@ -451,14 +450,6 @@
 				DDF5E93C182E2FBF00254832 /* ZXingTests.octest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		DDF5E951182E332D00254832 /* connections */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = connections;
-			path = ../MarkBook/connections;
 			sourceTree = "<group>";
 		};
 		DDF5E952182E332D00254832 /* controllers */ = {

@@ -14,7 +14,7 @@
         <attribute name="rate" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BookMarks" inverseName="book" inverseEntity="BookMarks" syncable="YES"/>
+        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BookMarks" inverseName="book" inverseEntity="BookMarks" syncable="YES"/>
     </entity>
     <entity name="BookMarks" representedClassName="BookMarks" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>

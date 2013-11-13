@@ -34,6 +34,14 @@
 @dynamic title;
 @dynamic marks;
 
+- (void)prepareForDeletion{
+    [super prepareForDeletion];
+    
+    for (BookMarks *mark in self.marks)
+    {
+        [self.managedObjectContext deleteObject:mark];
+    }
+}
 
 - (void)setData:(NSDictionary*)bookDict{
     [self setTitle:[bookDict objectForKey:TITLE]];
