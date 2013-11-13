@@ -36,14 +36,6 @@
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
-                                        initWithKey:@"addDate" ascending:NO];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
-	
-	NSMutableArray *sortedBooks = [[NSMutableArray alloc] initWithArray:[Book items]];
-	[sortedBooks sortUsingDescriptors:sortDescriptors];
-	self.books = sortedBooks;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -53,6 +45,14 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"addDate" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+	
+	NSMutableArray *sortedBooks = [[NSMutableArray alloc] initWithArray:[Book items]];
+	[sortedBooks sortUsingDescriptors:sortDescriptors];
+	self.books = sortedBooks;
+    
     [self.tableView reloadData];
 }
 
@@ -136,8 +136,10 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    Book *book=[_books objectAtIndex:_selectedIndex.row];
-    [segue.destinationViewController setValue:book forKey:@"book"];
+    if (![segue.identifier isEqualToString:@"gotoScan"]) {
+        Book *book=[_books objectAtIndex:_selectedIndex.row];
+        [segue.destinationViewController setValue:book forKey:@"book"];
+    }
 }
 
 @end

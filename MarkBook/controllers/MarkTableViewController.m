@@ -157,7 +157,13 @@
 - (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
     if (index < _bookMarks.count){
         BookMarks *mark=[_bookMarks objectAtIndex:index];
-        MWPhoto *photo=[MWPhoto photoWithImage:[UIImage imageWithData:mark.photo]];
+        UIImage *image=nil;
+        if (mark.photo) {
+            image=[UIImage imageWithData:mark.photo];
+        }else{
+            image=[UIImage imageNamed:@"Default"];
+        }
+        MWPhoto *photo=[MWPhoto photoWithImage:image];
         photo.caption=[NSString stringWithFormat:@"第 %@ 页", mark.page];
         return photo;
     }
