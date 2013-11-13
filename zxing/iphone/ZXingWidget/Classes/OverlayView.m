@@ -79,7 +79,7 @@ static const CGFloat kLicenseButtonPadding = 10;
       if ([self.cancelButtonTitle length] > 0 ) {
         [cancelButton setTitle:self.cancelButtonTitle forState:UIControlStateNormal];
       } else {
-        [cancelButton setTitle:NSLocalizedStringWithDefaultValue(@"OverlayView cancel button title", nil, [NSBundle mainBundle], @"Cancel", @"Cancel") forState:UIControlStateNormal];
+        [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
       }
       [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
       [self addSubview:cancelButton];

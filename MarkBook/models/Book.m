@@ -2,11 +2,12 @@
 //  Book.m
 //  MarkBook
 //
-//  Created by ZhenzhenXu on 11/10/13.
+//  Created by ZhenzhenXu on 11/13/13.
 //  Copyright (c) 2013 ZhenzhenXu. All rights reserved.
 //
 
 #import "Book.h"
+#import "BookMarks.h"
 
 #define TITLE @"title"
 #define IMG @"image"
@@ -15,10 +16,13 @@
 #define SUMMARY @"summary"
 #define LINK @"link"
 
+
 @implementation Book
 
+@dynamic addDate;
 @dynamic author;
 @dynamic bid;
+@dynamic curPage;
 @dynamic detailLink;
 @dynamic imageLink;
 @dynamic isbn;
@@ -28,9 +32,7 @@
 @dynamic rate;
 @dynamic summary;
 @dynamic title;
-@dynamic curPage;
-@dynamic addDate;
-
+@dynamic marks;
 
 
 - (void)setData:(NSDictionary*)bookDict{
@@ -60,5 +62,4 @@
     
     [self setAddDate:[NSDate date]];
 }
-
 @end

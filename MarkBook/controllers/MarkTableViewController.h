@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Book.h"
 
-@interface MarkTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface MarkTableViewController : UITableViewController
 
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) NSIndexPath *selectedIndex;
+@property (nonatomic, retain) Book *book;
+@property (nonatomic, retain) NSMutableArray *bookMarks;
 
 @end

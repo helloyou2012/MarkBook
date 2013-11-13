@@ -8,12 +8,12 @@
 
 #import "ScanCodeViewController.h"
 #import "MultiFormatReader.h"
-#import "AppDelegate.h"
 #import "SVProgressHUD.h"
+#import "CoreDataEnvir.h"
+#import "Book.h"
 
 @implementation ScanCodeViewController
 
-@synthesize managedObjectContext=_managedObjectContext;
 @synthesize connection=_connection;
 @synthesize cur_book=_cur_book;
 
@@ -54,10 +54,9 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }else{
         [SVProgressHUD dismiss];
-        NSError *saveError = nil;
-        _cur_book=[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:_managedObjectContext];
+        _cur_book = [Book insertItem];
         [_cur_book setData:data];
-        [_managedObjectContext save:&saveError];
+        [_cur_book save];
         [self performSegueWithIdentifier:@"gotoAddMark" sender:self];
     }
 }
@@ -73,32 +72,17 @@
 - (void)zxingController:(ZXingWidgetController*)controller didScanResult:(NSString *)result_ {
     
     if (self.isViewLoaded) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        _managedObjectContext=[appDelegate managedObjectContext];
-        
-        //首先查询coredata中是否存在数据
-        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:_managedObjectContext];
-        //按照isbn获取
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-        [fetchRequest setEntity:entityDescription];
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(isbn = %@)", result_];
-        [fetchRequest setPredicate:predicate];
-        
-        NSError *error = nil;
-        NSArray *itemsArray = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        //如果获取到的数组元素个数为0，则说明coredata中还没有数据，这时需要下载数据。
-        if ([itemsArray count] == 0) {
+        _cur_book=[Book lastItemWithPredicate:predicate];
+        if (_cur_book) {
+            [self performSegueWithIdentifier:@"gotoAddMark" sender:self];
+        }else{
             _connection=[[DoubanBookConnection alloc] initWithParam:result_];
             _connection.delegate=self;
             [_connection createConnection];
             [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-        }else{
-            _cur_book=[itemsArray objectAtIndex:0];
-            [self performSegueWithIdentifier:@"gotoAddMark" sender:self];
         }
     }
-    //[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)zxingControllerDidCancel:(ZXingWidgetController*)controller {

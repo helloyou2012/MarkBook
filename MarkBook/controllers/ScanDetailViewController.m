@@ -8,7 +8,7 @@
 
 #import "ScanDetailViewController.h"
 #import "UIImageView+WebCache.h"
-#import "AppDelegate.h"
+#import "Book.h"
 
 @implementation ScanDetailViewController
 
@@ -16,7 +16,6 @@
 @synthesize bauthor=_bauthor;
 @synthesize bcurPage=_bcurPage;
 @synthesize bsummary=_bsummary;
-@synthesize managedObjectContext=_managedObjectContext;
 @synthesize book=_book;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -31,8 +30,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    _managedObjectContext=[appDelegate managedObjectContext];
 	// Do any additional setup after loading the view.
 }
 
@@ -47,7 +44,7 @@
     [_bsummary sizeToFit];
     
     CGRect rect=_bcurPage.frame;
-    rect.origin.y=_bsummary.frame.origin.y+_bsummary.frame.size.height+250;
+    rect.origin.y=_bsummary.frame.origin.y+_bsummary.frame.size.height+100;
     [_bcurPage setFrame:rect];
     [_bcurPage setText:@"0"];
     [_bcurPage setText:[NSString stringWithFormat:@"%@", _book.curPage]];

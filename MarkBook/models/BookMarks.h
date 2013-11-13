@@ -2,7 +2,7 @@
 //  BookMarks.h
 //  MarkBook
 //
-//  Created by ZhenzhenXu on 11/10/13.
+//  Created by ZhenzhenXu on 11/13/13.
 //  Copyright (c) 2013 ZhenzhenXu. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber * page;
 @property (nonatomic, retain) NSData * photo;
 @property (nonatomic, retain) Book *book;
+
 
 -(BOOL)setDataFromBookMarks:(BookMarks *)bookMark;
 -(BOOL)setDataWithLatitude:(NSNumber *)lati Longitude:(NSNumber *)longi MarkTime:(NSDate *)t Mid:(NSString *)mid Page:(NSNumber *)page Photo:(NSData *)p Book:(Book *)b;

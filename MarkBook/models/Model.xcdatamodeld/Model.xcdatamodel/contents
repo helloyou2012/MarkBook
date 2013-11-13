@@ -14,6 +14,7 @@
         <attribute name="rate" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="marks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BookMarks" inverseName="book" inverseEntity="BookMarks" syncable="YES"/>
     </entity>
     <entity name="BookMarks" representedClassName="BookMarks" syncable="YES">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -22,10 +23,10 @@
         <attribute name="mid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="page" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
-        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="marks" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="BookMarks" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Book" positionX="0" positionY="0" width="128" height="253"/>
+        <element name="BookMarks" positionX="268" positionY="-6" width="128" height="150"/>
     </elements>
 </model>

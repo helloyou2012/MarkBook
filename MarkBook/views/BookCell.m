@@ -26,4 +26,11 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    CGRect rect=self.accessoryView.frame;
+    rect.origin.y=90.0f;
+    [self.accessoryView setFrame:rect];
+}
+
 @end

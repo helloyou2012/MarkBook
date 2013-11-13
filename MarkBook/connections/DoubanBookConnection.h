@@ -16,7 +16,7 @@
 
 @end
 
-@interface DoubanBookConnection : NSObject
+@interface DoubanBookConnection : NSObject<NSURLConnectionDelegate>
 
 @property (nonatomic, strong) NSMutableData *receivedData;
 @property (nonatomic, strong) NSString *requestData;

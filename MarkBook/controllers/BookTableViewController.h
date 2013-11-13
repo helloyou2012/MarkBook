@@ -10,18 +10,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ZXingWidgetController.h"
+@class CoreDataEnvir;
+@class Book;
 
 
-@interface BookTableViewController : UITableViewController<NSFetchedResultsControllerDelegate,ZXingDelegate>
+@interface BookTableViewController : UITableViewController
 
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *addBookButton;
-
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSIndexPath *selectedIndex;
 
-- (IBAction)addBookPressed:(id)sender;
 - (IBAction)backPressed:(id)sender;
 
 @end

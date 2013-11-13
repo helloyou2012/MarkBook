@@ -9,7 +9,10 @@
 #define TO_BOOK_MARK_LIST_IDENTIFIER @"ToBookMarkList"
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
+
+@class Book;
+@class BookMarks;
+@class CoreDataEnvir;
 
 @interface AddMarkViewController : UIViewController<UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 
@@ -17,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *curPage;
 
 @property (weak, nonatomic) IBOutlet UIImageView *photo;
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) Book *book;
 
 @property (nonatomic,strong) UIImagePickerController *imagePicker;

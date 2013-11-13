@@ -2,7 +2,7 @@
 //  BookMarks.m
 //  MarkBook
 //
-//  Created by ZhenzhenXu on 11/10/13.
+//  Created by ZhenzhenXu on 11/13/13.
 //  Copyright (c) 2013 ZhenzhenXu. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @dynamic page;
 @dynamic photo;
 @dynamic book;
+
 
 -(BOOL)setDataFromBookMarks:(BookMarks *)bookMark{
     self.latitude = bookMark.latitude;

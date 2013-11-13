@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Book.h"
+
+@class Book;
 
 @interface ScanDetailViewController : UIViewController
 
@@ -17,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bimage;
 @property (weak, nonatomic) IBOutlet UILabel *bsummary;
 
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) Book *book;
 
 @end

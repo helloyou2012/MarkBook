@@ -7,16 +7,15 @@
 //
 
 #import "MarkTableViewController.h"
-#import "AppDelegate.h"
 #import "MarkCell.h"
 #import "BookMarks.h"
 #import "UIImageView+WebCache.h"
+#import "CoreDataEnvir.h"
 
 @implementation MarkTableViewController
 
-@synthesize managedObjectContext=_managedObjectContext;
-@synthesize fetchedResultsController=_fetchedResultsController;
-@synthesize selectedIndex=_selectedIndex;
+@synthesize book=_book;
+@synthesize bookMarks=_bookMarks;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,19 +34,17 @@
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
     
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    _managedObjectContext=[appDelegate managedObjectContext];
-    
-    NSError *error;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	}
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                              initWithKey:@"marktime" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+	
+	NSMutableArray *sortedIngredients = [[NSMutableArray alloc] initWithArray:[_book.marks allObjects]];
+	[sortedIngredients sortUsingDescriptors:sortDescriptors];
+	self.bookMarks = sortedIngredients;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem.title=@"编辑";
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,14 +61,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id  sectionInfo =
-    [[_fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return _bookMarks.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 110.0f;
+    return 100.0f;
 }
 
 
@@ -88,112 +83,59 @@
 }
 
 - (void)configureCell:(MarkCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    BookMarks *mark = [_fetchedResultsController objectAtIndexPath:indexPath];
-    //[cell.btitle setText:book.title];
-//    NSDateFormatter *ndf= [[NSDateFormatter alloc]init];
-    [cell.time setText:[NSString stringWithFormat:@"%@",mark.marktime]];
-//    [cell.bcurPage setText:[NSString stringWithFormat:@"已读到%@页", book.curPage]];
-    [cell.pageNum setText:[NSString stringWithFormat:@"%@页", mark.page]];
-//    [cell.bimage setImageWithURL:[NSURL URLWithString:book.imageLink] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    [cell.img setImage:[UIImage imageWithData:mark.photo]];
+    BookMarks *mark = [_bookMarks objectAtIndex:indexPath.row];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式,这里可以设置成自己需要的格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [cell.time setText:[NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:mark.marktime]]];
+    
+    [cell.pageNum setText:[NSString stringWithFormat:@"第 %@ 页", mark.page]];
+    if (mark.photo) {
+        [cell.img setImage:[UIImage imageWithData:mark.photo]];
+    }else{
+        //[cell.img setImage:[UIImage imageNamed:@"placeholder"]];
+        [cell.img setBackgroundColor:[UIColor colorWithRed:0.153 green:0.682 blue:0.376 alpha:1.0]];
+    }
+    
 }
 
 #pragma mark - Table view delegate
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    //selected
-//    _selectedIndex=indexPath;
-//    [self performSegueWithIdentifier:TO_BOOK_MARK_LIST sender:nil];
-//}
-//-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
-//    _selectedIndex = indexPath;
-//    [self performSegueWithIdentifier:TO_BOOK_DETAIL sender:nil];
-//}
-
-#pragma mark FetchResultController
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"BookMarks" inManagedObjectContext:_managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc]
-                              initWithKey:@"marktime" ascending:NO];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                        managedObjectContext:_managedObjectContext sectionNameKeyPath:nil
-                                                   cacheName:@"Root"];
-    self.fetchedResultsController = theFetchedResultsController;
-    _fetchedResultsController.delegate = self;
-    
-    return _fetchedResultsController;
-    
-}
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-    [self.tableView beginUpdates];
-}
-
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-            
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:(MarkCell*)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray
-                                               arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Only allow deletion, and only in the ingredients section
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Remove the corresponding ingredient object from the recipe's ingredient list and delete the appropriate table view cell.
+        BookMarks *mark = [_bookMarks objectAtIndex:indexPath.row];
+        [mark remove];
+        [_book removeMarksObject:mark];
+        [[CoreDataEnvir mainInstance] saveDataBase];
+        [_bookMarks removeObject:mark];
+        
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
 }
 
+#pragma mark -
+#pragma mark Moving rows
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+#pragma mark -
+#pragma mark Editing
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    
+    [super setEditing:editing animated:animated];
+	[self.navigationItem setHidesBackButton:editing animated:YES];
+    
+    if (editing) {
+        self.navigationItem.rightBarButtonItem.title=@"完成";
+    }else{
+        self.navigationItem.rightBarButtonItem.title=@"编辑";
     }
-}
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-    [self.tableView endUpdates];
-}
-
-- (IBAction)backPressed:(id)sender{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

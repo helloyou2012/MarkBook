@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "ZXingWidgetController.h"
 #import "DoubanBookConnection.h"
-#import "Book.h"
+
+@class Book;
+@class CoreDataEnvir;
 
 @interface ScanCodeViewController : ZXingWidgetController<ZXingDelegate, DoubanBookConnectionDelegage>
 
 @property (nonatomic, strong) DoubanBookConnection *connection;
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) Book *cur_book;
 @end

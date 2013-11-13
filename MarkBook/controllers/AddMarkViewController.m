@@ -8,14 +8,14 @@
 
 #import "AddMarkViewController.h"
 #import "UIButton+WebCache.h"
-#import "AppDelegate.h"
+#import "CoreDataEnvir.h"
 #import "BookMarks.h"
+#import "Book.h"
 
 @implementation AddMarkViewController
 
 @synthesize mimage=_mimage;
 @synthesize curPage=_curPage;
-@synthesize managedObjectContext=_managedObjectContext;
 @synthesize book=_book;
 @synthesize imagePicker;
 
@@ -31,10 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    _managedObjectContext=[appDelegate managedObjectContext];
-    
     [_curPage becomeFirstResponder];
 	// Do any additional setup after loading the view.
 }
@@ -56,28 +52,18 @@
             if ([[actionSheet buttonTitleAtIndex:buttonIndex]isEqualToString:@"拍照"]) {
                 imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 [self presentViewController:imagePicker animated:YES completion:nil];
-//                [self presentModalViewController:imagePicker animated:YES];
-            } else {
-                //确定重新加载头像
             }
-            
             break;
         case 1:
             if ([[actionSheet buttonTitleAtIndex:buttonIndex]isEqualToString:@"用户相册"]) {
                 imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 [self presentViewController:imagePicker animated:YES completion:nil];
-
-//                [self presentModalViewController:imagePicker animated:YES];
-            } else {
-                //确定上传头像
             }
             //确定上传头像
             break;
         case 2:
             if ([[actionSheet buttonTitleAtIndex:buttonIndex]isEqualToString:@"取消"]) {
                 
-            } else {
-                //确定绑定邮箱
             }
             break;
         default:
@@ -87,16 +73,14 @@
 #pragma mark    imagePicker委托方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-//    [self dismissModalViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];//原图
     self.img = image;
     [self.photo setImage:image];
 }
 - (IBAction)takePhoto:(id)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {//支持相册和照相
-        
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        //支持相册和照相
         imagePicker = [[UIImagePickerController alloc]init];
         imagePicker.delegate = self;
         
@@ -110,26 +94,20 @@
         
         photoSheet.actionSheetStyle=UIActionSheetStyleDefault;
         [photoSheet showInView:self.view];
-    }
-    else if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary])
-    {
+    }else if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypePhotoLibrary]){
         imagePicker = [[UIImagePickerController alloc] init];
         imagePicker.delegate = self;
         [imagePicker setAllowsEditing:YES];
         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self presentViewController:imagePicker animated:YES completion:nil];
-//
-//        [self presentModalViewController:imagePicker animated:YES];
-        //    [self.view addSubview:imagePicker.view];
-    }
-    else
-    {
+    }else{
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Error accessing photo library!" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
         [alert show];
         
     }
     
 }
+
 - (IBAction)takeMark:(id)sender {
     NSString *page = self.curPage.text;
     if (!page || [page isEqualToString:@""]) {
@@ -140,19 +118,18 @@
         [self storeMark];
     }
 }
+
 -(void)storeMark{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    _managedObjectContext=[appDelegate managedObjectContext];
-    NSError *saveError = nil;
-    BookMarks *mark =[NSEntityDescription insertNewObjectForEntityForName:@"BookMarks" inManagedObjectContext:_managedObjectContext];
-    
     NSNumber *page = [NSNumber numberWithInt:[[self.curPage text] intValue]];
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSDate *now = [NSDate date];
     NSData*p = UIImagePNGRepresentation(self.img);
+    
+    [self.book setCurPage:page];
+    BookMarks *mark =[BookMarks insertItem];
     [mark setDataWithLatitude:nil Longitude:nil MarkTime:now Mid:self.book.isbn Page:page Photo:p Book:self.book];
-    self.book.curPage = page;
-    [_managedObjectContext save:&saveError];
-//    [self performSegueWithIdentifier:TO_BOOK_MARK_LIST_IDENTIFIER sender:self];
+    [_book addMarksObject:mark];
+    [[CoreDataEnvir mainInstance] saveDataBase];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
