@@ -18,6 +18,7 @@
 @implementation BookTableViewController
 
 @synthesize selectedIndex=_selectedIndex;
+@synthesize books=_books;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +36,14 @@
     if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]
+                                        initWithKey:@"addDate" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+	
+	NSMutableArray *sortedBooks = [[NSMutableArray alloc] initWithArray:[Book items]];
+	[sortedBooks sortUsingDescriptors:sortDescriptors];
+	self.books = sortedBooks;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -61,7 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[Book items] count];
+    return [_books count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,7 +92,7 @@
 }
 
 - (void)configureCell:(BookCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Book *book = [[Book items] objectAtIndex:indexPath.row];
+    Book *book = [_books objectAtIndex:indexPath.row];
     [cell.btitle setText:book.title];
     [cell.bauthor setText:book.author];
     [cell.bcurPage setText:[NSString stringWithFormat:@"已读到第 %@ 页", book.curPage]];
@@ -107,9 +116,10 @@
     // Only allow deletion, and only in the ingredients section
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the managed object for the given index path
-        Book *book=[[Book items] objectAtIndex:indexPath.row];
+        Book *book=[_books objectAtIndex:indexPath.row];
         [book remove];
         [[CoreDataEnvir mainInstance] saveDataBase];
+        [_books removeObject:book];
         [self.tableView reloadData];
 	}
 }
@@ -126,7 +136,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    Book *book=[[Book items] objectAtIndex:_selectedIndex.row];
+    Book *book=[_books objectAtIndex:_selectedIndex.row];
     [segue.destinationViewController setValue:book forKey:@"book"];
 }
 

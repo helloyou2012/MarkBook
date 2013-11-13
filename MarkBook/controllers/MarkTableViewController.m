@@ -38,9 +38,9 @@
                               initWithKey:@"marktime" ascending:NO];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
 	
-	NSMutableArray *sortedIngredients = [[NSMutableArray alloc] initWithArray:[_book.marks allObjects]];
-	[sortedIngredients sortUsingDescriptors:sortDescriptors];
-	self.bookMarks = sortedIngredients;
+	NSMutableArray *sortedMarks = [[NSMutableArray alloc] initWithArray:[_book.marks allObjects]];
+	[sortedMarks sortUsingDescriptors:sortDescriptors];
+	self.bookMarks = sortedMarks;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;

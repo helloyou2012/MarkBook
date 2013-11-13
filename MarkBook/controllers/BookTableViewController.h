@@ -17,6 +17,7 @@
 @interface BookTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSIndexPath *selectedIndex;
+@property (nonatomic, retain) NSMutableArray *books;
 
 - (IBAction)backPressed:(id)sender;
 
