@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MRProgress.h"
 
 @class Book;
 
@@ -14,9 +15,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *btitle;
 @property (weak, nonatomic) IBOutlet UILabel *bauthor;
-@property (weak, nonatomic) IBOutlet UILabel *bcurPage;
 @property (weak, nonatomic) IBOutlet UIImageView *bimage;
 @property (weak, nonatomic) IBOutlet UILabel *bsummary;
+@property (weak, nonatomic) IBOutlet MRCircularProgressView *circularProgressView;
 
 @property (nonatomic, retain) Book *book;
 

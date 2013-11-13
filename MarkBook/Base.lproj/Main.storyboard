@@ -168,20 +168,18 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRD-Xi-bQ3">
-                                <rect key="frame" x="8" y="257" width="304" height="147"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="130"/>
-                                <color key="textColor" red="0.15294117647058825" green="0.77254901960784317" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpS-gq-OBD">
-                                <rect key="frame" x="8" y="196" width="304" height="53"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Summary" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="304" translatesAutoresizingMaskIntoConstraints="NO" id="UpS-gq-OBD">
+                                <rect key="frame" x="8" y="187" width="304" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6O-eb-Tpv" customClass="MRCircularProgressView">
+                                <rect key="frame" x="60" y="316" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -202,10 +200,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bauthor" destination="iOB-0M-lf4" id="gWb-w4-bf4"/>
-                        <outlet property="bcurPage" destination="TRD-Xi-bQ3" id="pbh-wo-2vd"/>
                         <outlet property="bimage" destination="fyj-Tc-PVb" id="4dt-ka-Hnf"/>
                         <outlet property="bsummary" destination="UpS-gq-OBD" id="sFN-m0-5cJ"/>
                         <outlet property="btitle" destination="t5d-BH-Vdf" id="KTN-mL-wTu"/>
+                        <outlet property="circularProgressView" destination="a6O-eb-Tpv" id="MA4-30-Oq1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tci-ia-cQW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -555,6 +553,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="kdX-Bs-1XL"/>
-        <segue reference="CoO-SO-0Ih"/>
+        <segue reference="BJP-Wx-yad"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,6 +22,8 @@
 		DD0ED9F218328DB2004FC513 /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0ED9F118328DB2004FC513 /* Book.m */; };
 		DD0ED9F518328DB2004FC513 /* BookMarks.m in Sources */ = {isa = PBXBuildFile; fileRef = DD0ED9F418328DB2004FC513 /* BookMarks.m */; };
 		DD58D41318335D9500B4CF91 /* CoreDataEnvir.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58D41218335D9500B4CF91 /* CoreDataEnvir.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DD58D421183392B000B4CF91 /* MRCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58D419183392B000B4CF91 /* MRCircularProgressView.m */; };
+		DD58D423183392B000B4CF91 /* MRWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD58D420183392B000B4CF91 /* MRWeakProxy.m */; };
 		DDF5E900182E2F8300254832 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF5E8FF182E2F8300254832 /* Foundation.framework */; };
 		DDF5E902182E2F8300254832 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF5E901182E2F8300254832 /* CoreGraphics.framework */; };
 		DDF5E904182E2F8300254832 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDF5E903182E2F8300254832 /* UIKit.framework */; };
@@ -129,6 +131,12 @@
 		DD0ED9F418328DB2004FC513 /* BookMarks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookMarks.m; sourceTree = "<group>"; };
 		DD58D41118335D9500B4CF91 /* CoreDataEnvir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataEnvir.h; sourceTree = "<group>"; };
 		DD58D41218335D9500B4CF91 /* CoreDataEnvir.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataEnvir.m; sourceTree = "<group>"; };
+		DD58D418183392B000B4CF91 /* MRCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRCircularProgressView.h; sourceTree = "<group>"; };
+		DD58D419183392B000B4CF91 /* MRCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRCircularProgressView.m; sourceTree = "<group>"; };
+		DD58D41A183392B000B4CF91 /* MRProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProgress.h; sourceTree = "<group>"; };
+		DD58D41E183392B000B4CF91 /* MRProgressHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRProgressHelper.h; sourceTree = "<group>"; };
+		DD58D41F183392B000B4CF91 /* MRWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRWeakProxy.h; sourceTree = "<group>"; };
+		DD58D420183392B000B4CF91 /* MRWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRWeakProxy.m; sourceTree = "<group>"; };
 		DDF5E8FC182E2F8300254832 /* MarkBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDF5E8FF182E2F8300254832 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DDF5E901182E2F8300254832 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -257,6 +265,35 @@
 			path = CoreDataEnvir;
 			sourceTree = "<group>";
 		};
+		DD58D416183392B000B4CF91 /* MRProgress */ = {
+			isa = PBXGroup;
+			children = (
+				DD58D417183392B000B4CF91 /* Components */,
+				DD58D41A183392B000B4CF91 /* MRProgress.h */,
+				DD58D41B183392B000B4CF91 /* Utils */,
+			);
+			path = MRProgress;
+			sourceTree = "<group>";
+		};
+		DD58D417183392B000B4CF91 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				DD58D418183392B000B4CF91 /* MRCircularProgressView.h */,
+				DD58D419183392B000B4CF91 /* MRCircularProgressView.m */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DD58D41B183392B000B4CF91 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DD58D41E183392B000B4CF91 /* MRProgressHelper.h */,
+				DD58D41F183392B000B4CF91 /* MRWeakProxy.h */,
+				DD58D420183392B000B4CF91 /* MRWeakProxy.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		DDF5E8F3182E2F8300254832 = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +338,7 @@
 		DDF5E905182E2F8300254832 /* MarkBook */ = {
 			isa = PBXGroup;
 			children = (
+				DD58D416183392B000B4CF91 /* MRProgress */,
 				DD58D40A1833509400B4CF91 /* CoreDataEnvir */,
 				DDF5E9C5182EE77900254832 /* SVProgressHUD */,
 				DDF5E99F182ED13800254832 /* SDWebImage */,
@@ -633,6 +671,7 @@
 				DDF5E9D1182EF5A200254832 /* ScanDetailViewController.m in Sources */,
 				DDF5E9BA182ED13800254832 /* UIImageView+WebCache.m in Sources */,
 				DDF5E9E6182F467300254832 /* MarkTableViewController.m in Sources */,
+				DD58D421183392B000B4CF91 /* MRCircularProgressView.m in Sources */,
 				DD58D41318335D9500B4CF91 /* CoreDataEnvir.m in Sources */,
 				DDF5E9B7182ED13800254832 /* SDWebImageManager.m in Sources */,
 				DD0ED9F218328DB2004FC513 /* Book.m in Sources */,
@@ -653,6 +692,7 @@
 				DDF5E9D6182F0C6B00254832 /* AddMarkViewController.m in Sources */,
 				DDF5E97A182EA45900254832 /* HomeViewController.m in Sources */,
 				DDF5E9B4182ED13800254832 /* SDImageCache.m in Sources */,
+				DD58D423183392B000B4CF91 /* MRWeakProxy.m in Sources */,
 				DDF5E9E0182F277600254832 /* BookDetail.m in Sources */,
 				DD0ED9F518328DB2004FC513 /* BookMarks.m in Sources */,
 			);

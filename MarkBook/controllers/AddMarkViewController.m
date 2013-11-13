@@ -8,6 +8,7 @@
 
 #import "AddMarkViewController.h"
 #import "UIButton+WebCache.h"
+#import "SVProgressHUD.h"
 #import "CoreDataEnvir.h"
 #import "BookMarks.h"
 #import "Book.h"
@@ -121,6 +122,10 @@
 
 -(void)storeMark{
     NSNumber *page = [NSNumber numberWithInt:[[self.curPage text] intValue]];
+    if ([page intValue] > [_book.pageNum intValue]) {
+        [SVProgressHUD showErrorWithStatus:@"页码超出范围"];
+        return;
+    }
     NSDate *now = [NSDate date];
     NSData*p = UIImagePNGRepresentation(self.img);
     

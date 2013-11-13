@@ -14,9 +14,9 @@
 
 @synthesize btitle=_btitle;
 @synthesize bauthor=_bauthor;
-@synthesize bcurPage=_bcurPage;
 @synthesize bsummary=_bsummary;
 @synthesize book=_book;
+@synthesize circularProgressView=_circularProgressView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _circularProgressView.max=[[_book pageNum] intValue];
 	// Do any additional setup after loading the view.
 }
 
@@ -38,20 +39,12 @@
     [_btitle setText:_book.title];
     [_bauthor setText:_book.author];
     [_bimage setImageWithURL:[NSURL URLWithString:_book.imageLink] placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
     _bsummary.text = _book.summary;
-    _bsummary.numberOfLines = 0; //will wrap text in new line
-    [_bsummary sizeToFit];
-    
-    CGRect rect=_bcurPage.frame;
-    rect.origin.y=_bsummary.frame.origin.y+_bsummary.frame.size.height+100;
-    [_bcurPage setFrame:rect];
-    [_bcurPage setText:@"0"];
-    [_bcurPage setText:[NSString stringWithFormat:@"%@", _book.curPage]];
-    _bcurPage.numberOfLines = 0; //will wrap text in new line
-    [_bcurPage sizeToFit];
-    
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [_circularProgressView setProgress:[_book.curPage floatValue] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
