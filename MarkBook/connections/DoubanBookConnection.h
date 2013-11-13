@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Foundation/Foundation.h>
-
 @protocol DoubanBookConnectionDelegage
 
 -(void) doubanRequestFinished:(NSDictionary*)data withError:(NSString*)error;

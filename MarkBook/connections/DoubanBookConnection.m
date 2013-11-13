@@ -70,18 +70,15 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"Hello world");
-    // do something with the data
+    // Do something with the data
     NSError *jsonError = nil;
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:_receivedData options:NSJSONReadingMutableContainers error:&jsonError];
-    NSLog(@"%@", json);
     if(json!=nil) {
         if ([json objectForKey:@"msg"]) {
             [_delegate doubanRequestFinished:nil withError:@"未查询到数据！"];
         }else{
             [_delegate doubanRequestFinished:json withError:nil];
         }
-        
     }else{
         [_delegate doubanRequestFinished:nil withError:@"没有数据！"];
     }
