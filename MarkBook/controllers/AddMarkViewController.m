@@ -43,6 +43,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
     self.view.backgroundColor=[UIColor colorWithWhite:0.96f alpha:1.0f];
+    _mimage.backgroundColor=[UIColor colorWithWhite:0.9 alpha:1.0f];
     
     // 设置圆角半径
     _cancelButton.layer.masksToBounds = YES;
@@ -58,7 +59,7 @@
     _okButton.layer.borderWidth = 1;
     _okButton.layer.borderColor = [UIColor blueColor].CGColor;
     
-    _curPage.font=[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+    _curPage.font=[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:60];
     _curPage.textColor=[UIColor blueColor];
     
 	// Do any additional setup after loading the view.
@@ -115,6 +116,7 @@
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];//原图
     self.img=[self imageWithImage:image scaledToWidth:640.0f];
     [self.photo setImage:self.img];
+    _mimage.backgroundColor=[UIColor clearColor];
 }
 - (IBAction)takePhoto:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
