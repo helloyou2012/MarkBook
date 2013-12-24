@@ -82,6 +82,12 @@ static const CGFloat kLicenseButtonPadding = 10;
         [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
       }
       [cancelButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+      // 设置圆角半径
+      cancelButton.layer.masksToBounds = YES;
+      cancelButton.layer.cornerRadius = 15;
+      //还可设置边框宽度和颜色
+      cancelButton.layer.borderWidth = 1;
+      cancelButton.layer.borderColor = [UIColor whiteColor].CGColor;
       [self addSubview:cancelButton];
     }
   }
@@ -277,9 +283,9 @@ static const CGFloat kLicenseButtonPadding = 10;
       [cancelButton setTransform:CGAffineTransformMakeRotation(M_PI/2)];
       [cancelButton setFrame:CGRectMake(20, 175, 45, 130)];
     } else {
-      CGSize theSize = CGSizeMake(100, 50);
+      CGSize theSize = CGSizeMake(100, 30);
       CGRect rect = self.frame;
-      CGRect theRect = CGRectMake((rect.size.width - theSize.width) / 2, cropRect.origin.y + cropRect.size.height + 20, theSize.width, theSize.height);
+      CGRect theRect = CGRectMake((rect.size.width - theSize.width) / 2, cropRect.origin.y + cropRect.size.height + 30, theSize.width, theSize.height);
       [cancelButton setFrame:theRect];
     }
   }

@@ -61,6 +61,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_bookMarks.count<=0) {
+        UILabel *label=[[UILabel alloc] initWithFrame:self.tableView.frame];
+        label.text=@"没有书签";
+        label.textColor=[UIColor lightGrayColor];
+        label.font=[UIFont systemFontOfSize:20];
+        label.textAlignment=NSTextAlignmentCenter;
+        self.tableView.backgroundView=label;
+        self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    }else{
+        self.tableView.backgroundView=nil;
+        self.tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+    }
     return _bookMarks.count;
 }
 
@@ -95,7 +107,7 @@
         [cell.img setImage:[UIImage imageWithData:mark.photo]];
     }else{
         //[cell.img setImage:[UIImage imageNamed:@"placeholder"]];
-        [cell.img setBackgroundColor:[UIColor colorWithRed:0.153 green:0.682 blue:0.376 alpha:1.0]];
+        [cell.img setBackgroundColor:[UIColor colorWithWhite:0.96f alpha:1.0f]];
     }
     
 }

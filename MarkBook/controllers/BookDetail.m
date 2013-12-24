@@ -14,6 +14,8 @@
 @implementation BookDetail
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     NSURL *imgLink = [NSURL URLWithString:self.book.imageLink];
     [self.img setImageWithURL:imgLink placeholderImage:[UIImage imageNamed:@"placeholder"]];
     [self.btitle setText:self.book.title];

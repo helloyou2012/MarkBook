@@ -16,15 +16,18 @@
 
 @interface AddMarkViewController : UIViewController<UINavigationControllerDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIButton *mimage;
-@property (weak, nonatomic) IBOutlet UITextField *curPage;
-
-@property (weak, nonatomic) IBOutlet UIImageView *photo;
+@property (nonatomic, strong) IBOutlet UIButton *mimage;
+@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UITextField *curPage;
+@property (nonatomic, strong) IBOutlet UIImageView *photo;
+@property (nonatomic, strong) UIImage *img;
 @property (nonatomic, retain) Book *book;
+@property (nonatomic, strong) UIImagePickerController *imagePicker;
 
-@property (nonatomic,strong) UIImagePickerController *imagePicker;
 - (IBAction)takePhoto:(id)sender;
-@property (nonatomic,strong) UIImage *img;
 - (IBAction)takeMark:(id)sender;
 - (IBAction)backPressed:(id)sender;
+- (UIImage*)imageWithImage:(UIImage*)image
+             scaledToWidth:(CGFloat)newWidth;
 @end

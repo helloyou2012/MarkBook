@@ -70,6 +70,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (_books.count<=0) {
+        UILabel *label=[[UILabel alloc] initWithFrame:self.tableView.frame];
+        label.text=@"没有阅读图书";
+        label.textColor=[UIColor lightGrayColor];
+        label.font=[UIFont systemFontOfSize:20];
+        label.textAlignment=NSTextAlignmentCenter;
+        self.tableView.backgroundView=label;
+        self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    }else{
+        self.tableView.backgroundView=nil;
+        self.tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+    }
     return [_books count];
 }
 
@@ -120,7 +132,8 @@
         [book remove];
         [[CoreDataEnvir mainInstance] saveDataBase];
         [_books removeObject:book];
-        [self.tableView reloadData];
+        
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
 	}
 }
 

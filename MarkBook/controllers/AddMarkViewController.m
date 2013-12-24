@@ -16,6 +16,8 @@
 @implementation AddMarkViewController
 
 @synthesize mimage=_mimage;
+@synthesize cancelButton=_cancelButton;
+@synthesize okButton=_okButton;
 @synthesize curPage=_curPage;
 @synthesize book=_book;
 @synthesize imagePicker;
@@ -32,8 +34,43 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_curPage becomeFirstResponder];
+    
+    if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+        // iOS 7
+        [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+    } else {
+        // iOS 6
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+    }
+    self.view.backgroundColor=[UIColor colorWithWhite:0.96f alpha:1.0f];
+    
+    // 设置圆角半径
+    _cancelButton.layer.masksToBounds = YES;
+    _cancelButton.layer.cornerRadius = 14;
+    //还可设置边框宽度和颜色
+    _cancelButton.layer.borderWidth = 1;
+    _cancelButton.layer.borderColor = [UIColor blueColor].CGColor;
+    
+    // 设置圆角半径
+    _okButton.layer.masksToBounds = YES;
+    _okButton.layer.cornerRadius = 14;
+    //还可设置边框宽度和颜色
+    _okButton.layer.borderWidth = 1;
+    _okButton.layer.borderColor = [UIColor blueColor].CGColor;
+    
+    _curPage.font=[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:70];
+    _curPage.textColor=[UIColor blueColor];
+    
 	// Do any additional setup after loading the view.
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [_curPage becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,8 +113,8 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];//原图
-    self.img = image;
-    [self.photo setImage:image];
+    self.img=[self imageWithImage:image scaledToWidth:640.0f];
+    [self.photo setImage:self.img];
 }
 - (IBAction)takePhoto:(id)sender {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -123,11 +160,12 @@
 -(void)storeMark{
     NSNumber *page = [NSNumber numberWithInt:[[self.curPage text] intValue]];
     if ([page intValue] > [_book.pageNum intValue]) {
-        [SVProgressHUD showErrorWithStatus:@"页码超出范围"];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"页码超出范围" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
         return;
     }
     NSDate *now = [NSDate date];
-    NSData*p = UIImagePNGRepresentation(self.img);
+    NSData* p = UIImagePNGRepresentation(self.img);
     
     [self.book setCurPage:page];
     BookMarks *mark =[BookMarks insertItem];
@@ -136,6 +174,18 @@
     [[CoreDataEnvir mainInstance] saveDataBase];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (UIImage*)imageWithImage:(UIImage*)image
+              scaledToWidth:(CGFloat)newWidth
+{
+    CGFloat newHeight=newWidth*image.size.height/image.size.width;
+    UIGraphicsBeginImageContext( CGSizeMake(newWidth, newHeight) );
+    [image drawInRect:CGRectMake(0,0,newWidth,newHeight)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 @end

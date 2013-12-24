@@ -16,6 +16,9 @@
 
 @property (nonatomic, strong, readwrite) NSNumberFormatter *numberFormatter;
 
+@property (nonatomic, strong) CAShapeLayer *shapeLayer;
+@property (nonatomic, strong) CALayer *circleLayer;
+
 @property (nonatomic, weak, readwrite) UILabel *valueLabel;
 @property (nonatomic, weak, readwrite) UIView *stopView;
 
@@ -49,9 +52,6 @@
     return CAShapeLayer.class;
 }
 
-- (CAShapeLayer *)shapeLayer {
-    return (CAShapeLayer *)self.layer;
-}
 
 - (void)commonInit {
     self.animationDuration = 0.8;
@@ -66,14 +66,20 @@
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.locale = NSLocale.currentLocale;
     
-    self.layer.borderWidth = 2.0f;
+    self.circleLayer=[CALayer layer];
+    self.circleLayer.borderWidth = 6.0f;
+    self.circleLayer.frame=self.bounds;
+    [self.layer addSublayer:self.circleLayer];
     
-    self.shapeLayer.lineWidth = 2.0f;
+    self.shapeLayer=[CAShapeLayer layer];
+    self.shapeLayer.lineWidth = 6.0f;
     self.shapeLayer.fillColor = UIColor.clearColor.CGColor;
+    self.shapeLayer.frame=self.bounds;
+    [self.layer addSublayer:self.shapeLayer];
     
     UILabel *valueLabel = [UILabel new];
     self.valueLabel = valueLabel;
-    valueLabel.font = [UIFont systemFontOfSize:72.0f];
+    valueLabel.font=[UIFont fontWithName:@"HelveticaNeue-UltraLight" size:72.0f];
     valueLabel.textColor = UIColor.blackColor;
     valueLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:valueLabel];
@@ -87,14 +93,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    self.valueLabel.frame = self.bounds;
     
-    const CGFloat offset = 4;
-    CGRect valueLabelRect = self.bounds;
-    valueLabelRect.origin.x += offset;
-    valueLabelRect.size.width -= offset;
-    self.valueLabel.frame = valueLabelRect;
-    
-    self.layer.cornerRadius = self.frame.size.width / 2.0f;
+    self.circleLayer.cornerRadius = self.frame.size.width / 2.0f;
     self.shapeLayer.path = [self layoutPath].CGPath;
     
     CGFloat stopViewSizeValue = MIN(self.bounds.size.width, self.bounds.size.height);
@@ -118,7 +119,7 @@
     
     CGFloat width = self.frame.size.width;
     return [UIBezierPath bezierPathWithArcCenter:CGPointMake(width/2.0f, width/2.0f)
-                                          radius:width/2.0f - 2.5f
+                                          radius:width/2.0f - 3.0f
                                       startAngle:startAngle
                                         endAngle:endAngle
                                        clockwise:YES];
@@ -131,7 +132,8 @@
     [super tintColorDidChange];
     UIColor *tintColor = self.tintColor;
     self.shapeLayer.strokeColor = tintColor.CGColor;
-    self.layer.borderColor = tintColor.CGColor;
+    //self.circleLayer.borderColor = tintColor.CGColor;
+    self.circleLayer.borderColor=[UIColor lightGrayColor].CGColor;
     self.valueLabel.textColor = tintColor;
     self.stopView.backgroundColor = tintColor;
 }
