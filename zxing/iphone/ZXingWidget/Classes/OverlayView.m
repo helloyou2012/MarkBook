@@ -197,6 +197,7 @@ static const CGFloat kLicenseButtonPadding = 10;
   //	CGContextSetStrokeColor(c, white);
 	//	CGContextSetStrokeColor(c, white);
 	CGContextSaveGState(c);
+    /*
 	if (oneDMode) {
         NSString *text = @"";
         UIFont *helvetica15 = [UIFont systemFontOfSize:12];
@@ -213,7 +214,7 @@ static const CGFloat kLicenseButtonPadding = 10;
     CGSize displaySize = [self.displayedMessage sizeWithFont:font constrainedToSize:constraint];
     CGRect displayRect = CGRectMake((rect.size.width - displaySize.width) / 2 , cropRect.origin.y - displaySize.height, displaySize.width, displaySize.height);
     [self.displayedMessage drawInRect:displayRect withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
-	}
+	}*/
 	CGContextRestoreGState(c);
 	int offset = rect.size.width / 2;
 	if (oneDMode) {
